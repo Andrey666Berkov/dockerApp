@@ -14,4 +14,4 @@ jobs:
       - name: Dokcer build
         run: |
           ls -la
-          docker build -t helloapi:ci -f HelloApi/Dockerfile .
+          docker build -t helloapi:ci -f Dockerfile .
