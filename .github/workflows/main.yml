@@ -18,8 +18,8 @@ jobs:
       - name: Login ghcr
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io \
-          -u "${{ github.repository_owner }} \
-          --password-stdin
+            -u "${{ github.repository_owner }} \
+            --password-stdin
 
       - name: Build image
         run: |
