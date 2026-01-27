@@ -21,9 +21,9 @@ jobs:
         run: |
           ls -la
           docker build \
-          -t ghcr.io/andrey666berkov/helloapi:latest .
+          -t ghcr.io/Andrey666Berkov/helloapi:latest .
 
       - name: Push image
         run: |
-          docker push ghcr.io/andrey666berkov/helloapi:latest
+          docker push ghcr.io/Andrey666Berkov/helloapi:latest
           
