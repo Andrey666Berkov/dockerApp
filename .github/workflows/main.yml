@@ -23,7 +23,7 @@ jobs:
 
       - name: Build image
         run: |
-          docker build -t ghcr.io/${{ github.repository_owner }}/helloapi:latest Dockerfile .
+          docker build -t ghcr.io/$andrey666berkov/helloapi:latest .
 
       - name: Push image
         run: |
