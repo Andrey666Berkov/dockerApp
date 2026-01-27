@@ -1,3 +1,4 @@
+
 name: docker-level1-build
 
 on:
@@ -12,4 +13,5 @@ jobs:
 
       - name: Dokcer build
         run: |
+          ls -la
           docker build -t helloapi:ci -f HelloApi/Dockerfile .
