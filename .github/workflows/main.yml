@@ -11,7 +11,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Dokcer build
+      - name: Login to ghcr
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io \
+          -u ${{ github.actor }} \
+          --password-stdin
+
+      - name: Build image
         run: |
           ls -la
-          docker build -t helloapi:ci .
+          docker build \
+          -t ghcr.io/andrey666berkov/helloapi:latest .
+
+      - name: Push image
+        run: |
+          docker push ghcr.io/andrey666berkov/helloapi:latest
+          
