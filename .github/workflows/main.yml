@@ -4,6 +4,9 @@ name: docker-level1-build
 on:
   push:
     branches: ["main"]
+permissions: 
+  contents: read
+  packages: write
 
 jobs:
   build:
@@ -21,9 +24,9 @@ jobs:
         run: |
           ls -la
           docker build \
-          -t ghcr.io/Andrey666Berkov/helloapi:latest .
+          -t ghcr.io/andrey666berkov/helloapi:latest .
 
       - name: Push image
         run: |
-          docker push ghcr.io/Andrey666Berkov/helloapi:latest
+          docker push ghcr.io/andrey666berkov/helloapi:latest
           
