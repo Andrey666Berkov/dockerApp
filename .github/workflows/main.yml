@@ -15,16 +15,23 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Set image name
+        run: | 
+          echo "IMAGE=ghcr.io/andrey666berkov/helloapi" >> $GITHUV_ENV
+          echo "SHA_TAG=sha-${GITHUB_SHA::7}" >> $GITHUB_ENV
+
+          
       - name: Login ghcr
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io \
-            -u "${{ github.repository_owner }}" \
+            -u "${{ github.actor }}" \
             --password-stdin
 
       - name: Build image
         run: |
-          docker build -t ghcr.io/andrey666berkov/helloapi:latest .
+          docker build -t $IMAGE:latest -t IMAGE:$SHA_TAG .
 
       - name: Push image
         run: |
-          docker push ghcr.io/andrey666berkov/helloapi:latest
+          docker push $IMAGE:latest
+          dokcer push $IMAGE:$SHA_TAG
