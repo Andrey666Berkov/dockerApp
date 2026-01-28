@@ -34,4 +34,4 @@ jobs:
       - name: Push image
         run: |
           docker push $IMAGE:latest
-          dokcer push $IMAGE:$SHA_TAG
+          docker push $IMAGE:$SHA_TAG
