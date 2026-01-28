@@ -17,7 +17,7 @@ jobs:
 
       - name: Set image name
         run: | 
-          echo "IMAGE=ghcr.io/andrey666berkov/helloapi" >> $GITHUV_ENV
+          echo "IMAGE=ghcr.io/andrey666berkov/helloapi" >> $GITHUB_ENV
           echo "SHA_TAG=sha-${GITHUB_SHA::7}" >> $GITHUB_ENV
 
           
