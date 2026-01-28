@@ -29,7 +29,7 @@ jobs:
 
       - name: Build image
         run: |
-          docker build -t $IMAGE:latest -t IMAGE:$SHA_TAG .
+          docker build -t $IMAGE:latest -t $IMAGE:$SHA_TAG .
 
       - name: Push image
         run: |
