@@ -84,7 +84,7 @@ jobs:
             docker compose up -d
             docker ps 
             echo "------curl cjeck---------"
-            curl -i http://127.0.0.1:8081/weatherforecast | head -n 20
+           
           
           
     
