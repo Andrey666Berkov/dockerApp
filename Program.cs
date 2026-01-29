@@ -1,5 +1,6 @@
 using HelloApi;
 using Microsoft.EntityFrameworkCore;
+using Npgsql;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,16 +11,15 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
     opt.UseNpgsql(builder.Configuration.GetConnectionString("Default")));
 
 var app = builder.Build();
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
-    app.UseHttpsRedirection();
+   // app.UseHttpsRedirection();
 
 }
-
-
 
 var summaries = new[]
 {
@@ -29,30 +29,23 @@ app.MapGet("/", () => "OK");
 
 app.MapGet("/Hello", () => "Hello WOrld");
 
-app.MapGet("/weatherforecast", () =>
-    {
-        var forecast = Enumerable.Range(1, 5).Select(index =>
-                new WeatherForecast
-                (
-                    DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                    Random.Shared.Next(-20, 55),
-                    summaries[Random.Shared.Next(summaries.Length)]
-                ))
-            .ToArray();
-        return forecast;
-    })
-    .WithName("GetWeatherForecast");
+app.MapGet("/db-check", async (IConfiguration cfg) =>
+{
+    var cs = cfg.GetConnectionString("Default");
+    await using var conn = new NpgsqlConnection(cs);
+    await conn.OpenAsync();
+    await using var cmd = new NpgsqlCommand("SELECT 1", conn);
+    var result = await cmd.ExecuteScalarAsync();
+    return Results.Ok(new { ok = true, result });
+
+    
+});
+
 
 app.Run();
 
 //22
 
-namespace HelloApi
-{
-    record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-    {
-        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-    }
-}
+
 
 public partial class Program { }

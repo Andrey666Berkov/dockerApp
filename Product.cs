@@ -1,8 +1,17 @@
-﻿namespace HelloApi;
+﻿
+using HelloApi;
+using Microsoft.EntityFrameworkCore;
 
-public class Product
+namespace HelloApi
 {
-    public int Id { get; set; }
-    public string Name { get; set; } = "";
-    public decimal Price { get; set; }
+    public class Product
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = "";
+        public decimal Price { get; set; }
+    }
+}
+public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
+{
+    public DbSet<Product> Products => Set<Product>();
 }
