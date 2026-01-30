@@ -35,7 +35,7 @@ app.MapGet("/db-check", async (IConfiguration cfg) =>
     await using var conn = new NpgsqlConnection(cs);
     await conn.OpenAsync();
     await using var cmd = new NpgsqlCommand("SELECT 1", conn);
-    var result = await cmd.ExecuteScalarAsync();
+    var result = await cmd.ExecuteReaderAsync();
     return Results.Ok(new { ok = true, result });
 
     
