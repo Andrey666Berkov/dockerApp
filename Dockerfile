@@ -14,6 +14,7 @@ WORKDIR /app
 COPY --from=build /out .
 EXPOSE 8080
 ENV ASPNETCORE_URLS=http://+:8080
+HEALTHCHECK CMD curl --fail http://localhost:8080/db-check || exit 1
 ENTRYPOINT ["dotnet", "HelloApi.dll"]
 
 #FROM mcr.microsoft.com/dotnet/sdk:10.0 AS migrator
